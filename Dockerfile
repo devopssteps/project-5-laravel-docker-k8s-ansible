@@ -33,13 +33,13 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
-WORKDIR /var/www
+WORKDIR /var/www/app
 
 # # Copy Laravel app
 # COPY ./app /var/www
 
 
-COPY ./app /var/www
+COPY . /var/www
 
 # Ensure composer.json exists
 RUN ls -la /var/www && cat composer.json
