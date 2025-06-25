@@ -35,8 +35,14 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 WORKDIR /var/www
 
-# Copy Laravel app
-COPY ./app /var/www
+# # Copy Laravel app
+# COPY ./app /var/www
+
+
+COPY . /var/www
+
+# Ensure composer.json exists
+RUN ls -la /var/www && cat composer.json
 
 RUN composer install --optimize-autoloader --no-dev
 
