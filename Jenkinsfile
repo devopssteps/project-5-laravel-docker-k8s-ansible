@@ -17,12 +17,12 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/devopssteps/project-5-laravel-docker-k8s-ansible.git'
             }
         }
-
-        // stage('Build Docker Image') {
-        //     steps {
-        //         sh 'docker build -t $DOCKER_IMAGE:$BUILD_NUMBER .'
-        //     }
-        // }
+        // Build docker image
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKER_IMAGE:$BUILD_NUMBER .'
+            }
+        }
 
         // stage('Push to DockerHub') {
         //     steps {
