@@ -1,0 +1,10 @@
+- name: Deploy Laravel to Kubernetes
+  hosts: localhost
+  tasks:
+    - name: Apply Kubernetes manifests
+      kubernetes.core.k8s:
+        state: present
+        namespace: default
+        definition: "{{ lookup('template', '../k8s/deployment.yaml') }}"
+      vars:
+        image: "{{ image }}"
