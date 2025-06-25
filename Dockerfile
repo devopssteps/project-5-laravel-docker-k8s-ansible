@@ -39,7 +39,7 @@ WORKDIR /var/www
 # COPY ./app /var/www
 
 
-COPY . /var/www
+COPY ./app /var/www
 
 # Ensure composer.json exists
 RUN ls -la /var/www && cat composer.json
