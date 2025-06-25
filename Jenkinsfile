@@ -13,6 +13,7 @@ pipeline {
     }
 
     stages {
+        //clone git repo
         stage('Clone Repo') {
             steps {
                 git branch: 'main', url: 'https://github.com/devopssteps/project-5-laravel-docker-k8s-ansible.git'
