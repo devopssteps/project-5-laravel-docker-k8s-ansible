@@ -1,10 +1,11 @@
 pipeline {
-    agent {
-        node{
-            label "ansible"
-        }
+    agent any
+    // agent {
+    //     node{
+    //         label "ansible"
+    //     }
         
-    }
+    // }
 
     environment {
         DOCKER_IMAGE = "rajivsiddiqui/laravel-app"
