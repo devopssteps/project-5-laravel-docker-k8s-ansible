@@ -37,7 +37,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 WORKDIR /var/www/app
 
 # Copy everything into /var/www
-COPY ./app /var/www
+COPY . /var/www
 
 
 # Ensure composer.json exists
