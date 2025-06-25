@@ -34,10 +34,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
 # Set working directory to Laravel app folder
-WORKDIR /var/www/app
+WORKDIR /var/www/app/
 
 # Copy everything into /var/www
-COPY . /var/www
+COPY . /var/www/
 
 
 # Ensure composer.json exists
