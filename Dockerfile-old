@@ -4,7 +4,7 @@ FROM php:8.3-fpm
 # RUN apt-get update && apt-get install -y \
 #     zip unzip git curl libpng-dev libonig-dev libxml2-dev \
 #     libzip-dev && \
-#     docker-php-ext-install pdo pdo_mysql zip
+#     docker-php-ext-install pdo pdo_mysql zip 
 
 # Install system dependencies + PHP extensions
 RUN apt-get update && apt-get install -y \
@@ -33,12 +33,24 @@ RUN docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath
 RUN curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer
 
+# Set working directory to Laravel app folder
+#WORKDIR /var/www/app
+
+# Copy everything into /var/www
+#COPY ./app/ /var/www/app/
+
+# Set working directory
 WORKDIR /var/www
 
-# Copy Laravel app
+# Copy Laravel project from app/ to container
 COPY ./app /var/www
-RUN ls -la /var/www
 
+RUN ls -la /var/www/
+
+# Ensure composer.json exists
+# RUN ls -la /var/www/ && cat composer.json
+
+# Run composer inside /var/www/app
 RUN composer install --optimize-autoloader --no-dev
 
 #RUN chown -R www-data:www-data /var/www \
@@ -50,7 +62,7 @@ RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
 
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["docker-entrypoint.sh"]
-
+    
 
 EXPOSE 9000
 
