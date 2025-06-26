@@ -1,10 +1,24 @@
 - name: Deploy Laravel to Kubernetes
   hosts: localhost
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: Apply Kubernetes manifests
       kubernetes.core.k8s:
         state: present
         namespace: default
+        #definition: "{{ lookup('file', 'k8s/deployment.yaml') }}"
         definition: "{{ lookup('template', '../k8s/deployment.yaml') }}"
-      vars:
-        image: "{{ image }}"
+      # vars:
+      #   image: "{{ image }}"
+
+# - name: Deploy Laravel to Kubernetes
+#   hosts: localhost
+#   vars:
+#     ansible_python_interpreter: /usr/bin/python3  # Replace with correct path if different
+#   tasks:
+#     - name: Apply Kubernetes manifests
+#       community.kubernetes.k8s:
+#         kubeconfig: ~/.kube/config
+#         state: present
+#         definition: "{{ lookup('file', 'k8s/deployment.yaml') }}"
