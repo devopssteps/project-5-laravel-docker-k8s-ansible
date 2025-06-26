@@ -8,8 +8,10 @@ pipeline {
     // }
 
     environment {
-        DOCKER_IMAGE = "rajivsiddiqui/laravel-app"
+        DOCKER_IMAGE = "devopssteps/laravel-app"
         K8S_NAMESPACE = "default"
+        DOCKERHUB_CREDENTIALS = credentials('docker-hub-credential')
+
     }
 
     stages {
@@ -33,6 +35,14 @@ pipeline {
             }
         }
 
+        stage('Login to dockerhub and push the image') {
+            steps {
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                sh 'docker push $DOCKER_IMAGE:$BUILD_NUMBER'
+            }
+        }
+        
+        
         // stage('Push to DockerHub') {
         //     steps {
         //         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
