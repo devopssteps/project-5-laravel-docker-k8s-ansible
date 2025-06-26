@@ -47,21 +47,21 @@ COPY ./app /var/www
 
 RUN ls -la /var/www/
 
-# # Ensure composer.json exists
+# Ensure composer.json exists
 # RUN ls -la /var/www/ && cat composer.json
 
-# # Run composer inside /var/www/app
-# RUN composer install --optimize-autoloader --no-dev
+# Run composer inside /var/www/app
+RUN composer install --optimize-autoloader --no-dev
 
-# #RUN chown -R www-data:www-data /var/www \
-# #    && chmod -R 775 storage bootstrap/cache
+#RUN chown -R www-data:www-data /var/www \
+#    && chmod -R 775 storage bootstrap/cache
 
-# # Set correct permissions for Laravel
-# RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
-#     chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+# Set correct permissions for Laravel
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
+    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
-# COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-# ENTRYPOINT ["docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["docker-entrypoint.sh"]
     
 
 EXPOSE 9000
