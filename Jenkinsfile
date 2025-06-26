@@ -54,10 +54,10 @@ pipeline {
         //     }
         // }
 
-        // stage('Deploy to K8s via Ansible') {
-        //     steps {
-        //         sh 'ansible-playbook ansible/deploy.yml --extra-vars "image=$DOCKER_IMAGE:$BUILD_NUMBER"'
-        //     }
-        // }
+        stage('Deploy to K8s via Ansible') {
+            steps {
+                sh 'ansible-playbook ansible/deploy.yml --extra-vars "image=$DOCKER_IMAGE:$BUILD_NUMBER"'
+            }
+        }
     }
 }
