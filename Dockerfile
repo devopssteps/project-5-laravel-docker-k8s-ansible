@@ -43,23 +43,25 @@ RUN curl -sS https://getcomposer.org/installer | php \
 WORKDIR /var/www
 
 # Copy Laravel project from app/ to container
-COPY ./app/ /var/www/
+COPY ./app /var/www
 
-# Ensure composer.json exists
-RUN ls -la /var/www/ && cat composer.json
+RUN ls -la /var/www/
 
-# Run composer inside /var/www/app
-RUN composer install --optimize-autoloader --no-dev
+# # Ensure composer.json exists
+# RUN ls -la /var/www/ && cat composer.json
 
-#RUN chown -R www-data:www-data /var/www \
-#    && chmod -R 775 storage bootstrap/cache
+# # Run composer inside /var/www/app
+# RUN composer install --optimize-autoloader --no-dev
 
-# Set correct permissions for Laravel
-RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
-    chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+# #RUN chown -R www-data:www-data /var/www \
+# #    && chmod -R 775 storage bootstrap/cache
 
-COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["docker-entrypoint.sh"]
+# # Set correct permissions for Laravel
+# RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache && \
+#     chmod -R 775 /var/www/storage /var/www/bootstrap/cache
+
+# COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
+# ENTRYPOINT ["docker-entrypoint.sh"]
     
 
 EXPOSE 9000
